@@ -52,6 +52,32 @@ class jwtDemo extends Component {
     .done();
   }
 
+  _userSignup = () => {
+    let value = this.refs.form.getValue();
+    if (value) { // if validation fails, value will be null
+      fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: value.username,
+          password: value.password,
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this._onValueChange(STORAGE_KEY, responseData.id_token),
+        AlertIOS.alert(
+          "Signup Success!",
+          "Click the button to get a Chuck Norris quote!"
+        )
+      })
+      .done();
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
