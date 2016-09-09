@@ -104,6 +104,15 @@ class jwtDemo extends Component {
     }
   }
 
+  async _userLogout() {
+    try {
+      await AsyncStorage.removeItem(STORAGE_KEY);
+      AlertIOS.alert("Logout Success!")
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -123,6 +132,9 @@ class jwtDemo extends Component {
           </TouchableHighlight>
           <TouchableHighlight style={styles.button} onPress={this._userLogin} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this._userLogout} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Logout</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.row}>
